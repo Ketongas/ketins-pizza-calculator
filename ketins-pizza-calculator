@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ketin's Pizza Calculator</title>
+</head>
+<body style="background:#f9f9f9; padding:20px; font-family:sans-serif;">
+
+<div style="max-width:500px; margin:30px auto; padding:20px; background:white; border:1px solid #ccc; border-radius:10px;">
+  <h2 style="text-align:center;">🍕 Ketin's Pizza Calculator</h2>
+
+  <label>How many kids are attending?</label>
+  <input type="number" id="kids" placeholder="e.g. 10" style="width:100%; padding:8px; margin:10px 0;">
+
+  <label>How many slices per kid?</label>
+  <input type="number" id="slices-per-kid" step="0.5" value="2.5" style="width:100%; padding:8px; margin-bottom:10px;">
+
+  <label>Select your pizza place:</label>
+  <select id="place" style="width:100%; padding:8px; margin-bottom:10px;">
+    <option value="dominos">Domino's</option>
+    <option value="pizzahut">Pizza Hut</option>
+    <option value="littlecaesars">Little Caesars</option>
+    <option value="costco">Costco</option>
+    <option value="papajohns">Papa John’s</option>
+    <option value="chuckecheese">Chuck E. Cheese</option>
+    <option value="blazepizza">Blaze Pizza</option>
+    <option value="marcos">Marco’s Pizza</option>
+  </select>
+
+  <button onclick="calculatePizzas()" style="width:100%; padding:10px; background:#e74c3c; color:white; border:none; border-radius:5px;">Calculate</button>
+
+  <p id="output" style="text-align:center; font-weight:bold; margin-top:15px;"></p>
+</div>
+
+<script>
+  function calculatePizzas() {
+    var kids = parseFloat(document.getElementById('kids').value);
+    var slicesPerKid = parseFloat(document.getElementById('slices-per-kid').value);
+    var place = document.getElementById('place').value;
+    var output = document.getElementById('output');
+
+    if (isNaN(kids) || kids <= 0 || isNaN(slicesPerKid) || slicesPerKid <= 0) {
+      output.innerText = "Please enter valid numbers.";
+      return;
+    }
+
+    var pizzaSizes = {
+      dominos: 8,
+      pizzahut: 8,
+      littlecaesars: 8,
+      costco: 12,
+      papajohns: 8,
+      chuckecheese: 10,
+      blazepizza: 6,
+      marcos: 8
+    };
+
+    var placeNames = {
+      dominos: "Domino's",
+      pizzahut: "Pizza Hut",
+      littlecaesars: "Little Caesars",
+      costco: "Costco",
+      papajohns: "Papa John’s",
+      chuckecheese: "Chuck E. Cheese",
+      blazepizza: "Blaze Pizza",
+      marcos: "Marco’s Pizza"
+    };
+
+    var totalSlices = kids * slicesPerKid;
+    var slicesPerPizza = pizzaSizes[place];
+    var pizzasNeeded = Math.ceil(totalSlices / slicesPerPizza);
+
+    output.innerText = "You need about " + pizzasNeeded + " pizza(s) from " + placeNames[place] + ". 🍕";
+  }
+</script>
+
+</body>
+</html>
